@@ -3,10 +3,26 @@ name: AI Agent
 
 on:
   workflow_dispatch:
+    inputs:
+      task:
+        description: "What should the agent do?"
+        required: true
+        type: string
 
 jobs:
   agent:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Start Agent
-        run: echo "AI Agent is ready"
+      - name: Start AI Agent
+        run: |
+          echo "================================"
+          echo "        AI AGENT STARTED"
+          echo "================================"
+          echo ""
+          echo "Requested task:"
+          echo "${{ inputs.task }}"
+          echo ""
+          echo "Agent mode: General Purpose"
+          echo "Allowed use: Helpful and legitimate tasks"
+          echo "Status: Ready for AI tools and automation"
