@@ -14,15 +14,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Start AI Agent
+      - name: Run GPT-4.1 Agent
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          echo "================================"
-          echo "        AI AGENT STARTED"
-          echo "================================"
-          echo ""
-          echo "Requested task:"
-          echo "${{ inputs.task }}"
-          echo ""
-          echo "Agent mode: General Purpose"
-          echo "Allowed use: Helpful and legitimate tasks"
-          echo "Status: Ready for AI tools and automation"
+          RESPONSE=$(curl -s https://api.openai.com/v1/responses \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $OPENAI_API_KEY" \
+            -d '{
+              "model": "gpt-4.1",
+              "input": "'"${{ inputs.task }}"'"
+            }')
+
+          echo "=============================="
+          echo "       AI AGENT RESPONSE"
+          echo "=============================="
+          echo "$RESPONSE"
